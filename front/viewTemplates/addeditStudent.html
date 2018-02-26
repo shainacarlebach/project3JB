@@ -1,0 +1,23 @@
+<div class="jumbotron">
+    <div class="col-md-8 ">
+        <p>Add Student/Edit Student Name</p>
+        <hr>
+        
+        <form enctype="multipart/form-data" id="addStudentForm">
+
+            Name:
+            <input type="text" name="name" id="inputname" placeholder="name">
+            <br> Phone:
+            <input type="text" name="phone" id="inputphone" placeholder="phone">
+            <br> Email:
+            <input type="text" name="email" id="inputemail" placeholder="email">
+            <br> Image:
+            <input type="file" name="studentimage" id="inputimage">
+            <input type="submit" name="upload_image" value="Upload">
+            <br>
+
+            <div id="course_checkbox">
+                <h4>Courses</h4>
+            </div>
+            <button class=" btn btn-primary btn-xs" id="save_student" data-saveStudent="{{saveid}}">Save Student</button>
+        </form>

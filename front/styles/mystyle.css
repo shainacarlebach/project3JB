@@ -1,0 +1,138 @@
+/* Set a style for all buttons */
+button.login {
+    background-color: rgb(86, 76, 175);
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+}
+
+#loginbutton1:hover {
+    opacity: 0.8;
+}
+
+
+.photo{
+    margin:15px 15px 15px 5px;
+    height:65px;
+    float:left;
+    width:210%;
+}
+#studentphoto{
+margin:-27px -38px 15px 5px;;
+height:150px;
+float:right;
+width:125%;
+}
+span #student_name{
+    display:block;
+}
+span #student_phone{
+    display:block;
+}
+span #student_email{
+    display:block;
+}
+/* Center the image and position the close button */
+.imgcontainer {
+    text-align: center;
+    margin:32px 8px 8px 16px;
+    position: relative;
+}
+
+.container {
+    padding: 16px;
+}
+.d-flex.flex-column{
+width:50%;
+}
+#addStudents{
+float:right;
+}
+button #editStudent{float:right;}
+#addCourses{float:right;}
+#admin{color:whitesmoke;}
+#role{color:whitesmoke;}
+h1{ background-color:dodgerblue;
+text-align:center;
+ }
+h4{
+    text-decoration: underline;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: blue;
+    margin: 5% auto 40% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid rgba(29, 5, 5, 0.911);
+    width: 50%; /* Could be more or less, depending on screen size */
+    align-items: center;
+}
+
+input[type], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+
+ 
+ .row.content {height: 1500px}
+ 
+ /* Set gray background color and 100% height */
+ .containerSchool {
+   background-color: #f1f1f1;
+   height: 100%;
+ }
+ 
+ /* Set black background color, white text and some padding */
+ footer {
+   background-color: #555;
+   color: white;
+   padding: 15px;
+ }
+ 
+ /* On small screens, set height to 'auto' for sidenav and grid */
+ @media screen and (max-width: 767px) {
+   .containerSchool {
+     height: auto;
+     padding: 15px;
+   }
+   .row.content {height: auto;} 
+ }
+ 
