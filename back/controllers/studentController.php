@@ -11,43 +11,43 @@ class StudentController extends Controller{
 
 
 // fetch rows db table, each row stored array offset starting from 0.
-function createNewRow($rows, $model){
-    $m= new StudentModel($param);
-    $column="";
-    $values="";
-    $insertedobjects = array();
+//function createNewRow($rows, $model){
+  //  $m= new StudentModel($param);
+   // $column="";
+   // $values="";
+   // $insertedobjects = array();
 
-        for($i=0; $i<count($rows); $i++) {
-            if (count($rows) != $i+1) { 
-            $column .= $rows[$i] . ", ";
-            $values .= ":" .$rows[$i] . ", ";
-            $obj = 'obj' . $rows[$i];
-            $putobj = $m->{$obj}();
-            $insertedobjects[$rows[$i]] = $putobj;
-            }
-            else {
-            $column .= $rows[$i];
-            $values .= ":" . $rows[$i];
-            $obj = 'obj' . $rows[$i];
-            $putobj = $m->{$obj}();
-            $insertedobjects[$rows[$i]] = $putobj;
-            }
-        }
-    return [$column, $values, $insertedobjects];
-    }
+     //   for($i=0; $i<count($rows); $i++) {
+       //     if (count($rows) != $i+1) { 
+         //   $column .= $rows[$i] . ", ";
+          //  $values .= ":" .$rows[$i] . ", ";
+           // $obj = 'obj' . $rows[$i];
+            //$putobj = $m->{$obj}();
+           // $insertedobjects[$rows[$i]] = $putobj;
+            //}
+            //else {
+           // $column .= $rows[$i];
+            //$values .= ":" . $rows[$i];
+            //$obj = 'obj' . $rows[$i];
+           // $putobj = $m->{$obj}();
+           // $insertedobjects[$rows[$i]] = $putobj;
+            //}
+      //  }
+    //return [$column, $values, $insertedobjects];
+    //}
 
 // Creates a new row in a table
-function CreateRowinStudents() {
-    $bl= new BL();
-    $m= new StudentModel($param);
-    $rows = $m->getRows();
-    $data = $this->createNewRow($rows, $m);
-    $newrowsinserted = $bl->Insert('school_students',$data[0], $data[1],$data[2]);
-     if($newrowsinserted == true){ return true;
-     }else{
-         return false;
-     }
- }
+//function CreateRowinStudents() {
+  //  $bl= new BL();
+   // $m= new StudentModel($param);
+    //$rows = $m->getRows();
+    //$data = $this->createNewRow($rows, $m);
+    //$newrowsinserted = $bl->Insert('school_students',$data[0], $data[1],$data[2]);
+     //if($newrowsinserted == true){ return true;
+    // }else{
+      //   return false;
+     //}
+ //}
 // get the courses student enrolled by student id
 function getCoursesPerStudent($params) {
     $bl=new BL();
@@ -90,9 +90,9 @@ return $studentsArray;
 
 
 //check if id exists and retrieve student
-function getStudentById() {
+function getStudentById($params) {
        $bl=new BL();
-       $m= new StudentModel($param);
+       $m= new StudentModel($params);
        if($m->getID()!='null'||$m->getID()!='Nan'){
        $sid=$bl-> get_ID_DB('school_students',$m->getID());
        return $sid; 

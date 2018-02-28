@@ -47,6 +47,7 @@ class DAL {
              $stmt->execute();
              return $stmt->fetchAll();
       } 
+      
       //inserts data into table 
       function insertData($query, $insertedobjects) {
         $conn=$this->openConnection();

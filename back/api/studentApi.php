@@ -31,19 +31,24 @@
 
 //get all students or one student by id
         function Read($params) {
+                 
+                
              if (array_key_exists("student_id", $params)) {
-               if (array_key_exists("inner", $params)) {
-                   $allcoursesforstudent = $this->controller->getCoursesPerStudent($params);
-                   return $allcoursesforstudent;
-                  } else {
-                $student = $this->controller->getStudentById();
+             //  if (array_key_exists("inner", $params)) {
+               //    $allcoursesforstudent = $this->controller->getCoursesPerStudent($params);
+                 //  return $allcoursesforstudent;
+                  //} else {
+                  //  if (isset($_REQUEST['student_id'])) {
+                    //    $id = $_REQUEST['student_id'];
+                         
+               $student = $this->controller->getStudentById($params);
               return json_encode($student);
             }
-        }
+        
            else {
                      $students=$this->controller->getAllStudents();
                            return $students;
-                  }
+               }
                 }
 
         //updates student        

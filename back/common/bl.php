@@ -4,7 +4,6 @@ require_once 'dal.php';
 class BL{
 private $tableName;
 private $dal;
-private $idNum;
 private $condition;
 private $insertedobjects;
 private $values;
@@ -24,7 +23,7 @@ return $alldata;
 
 //generic query get data by id 
 public function get_ID_DB($tableName,$idNum){
-$idall=$this->dal->getAll("SELECT * FROM`".$tableName."`WHERE id=`".$idNum."`");
+$idall=$this->dal->getAll("SELECT * FROM`".$tableName."` WHERE student_id=$idNum");
 return $idall;
 
 }
