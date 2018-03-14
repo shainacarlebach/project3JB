@@ -1,0 +1,56 @@
+<div class="jumbotron">
+    <div class="col-md-8 ">
+        <p>Edit Student Name</p>
+        <hr>
+
+       <div>
+        <button class=" btn btn-danger btn-xs float-right" id="delete_student" data-deleteStudent="{{studentid}}">Delete Student</button>
+        <button class=" btn btn-primary btn-xs" id="update_student"  data-updateStudent="{{studentid}}">Update Student</button>
+       </div>
+
+       <br>
+       <form id ="editStudentForm" enctype="multipart/form-data">
+
+            Name:
+            <input type="text" name="name" id="inputname" placeholder="name">
+            <br> Phone:
+            <input type="text" name="phone" id="inputphone" placeholder="phone">
+            <br> Email:
+            <input type="text" name="email" id="inputemail" placeholder="email">
+            <br> Image:
+            <input id="inputimage" name="upload_image"type="file" multiple >
+           
+            <!--crop image recieved-->
+            <div class="component crop2">
+                    <img id="croppedimage" data-name="" src="#" onload="this.width/=3;" alt="Your image">
+                    <div id="crop_tool"></div>
+                </div>
+  
+                <br>
+                <div id="course-checkbox">
+                    <h6>Courses</h6>
+                    <div class="container">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="">HTML 5
+                        </label>
+    
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="">CSS
+                        </label>
+    
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="">BOOTSTRAP
+                        </label>
+    
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="">JAVASCRIPT
+                        </label>
+    
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value=""> ANGULAR
+                        </label>
+                    </div>
+                </div>
+       </div>
+    </form>            
+                
