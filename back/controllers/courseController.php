@@ -86,6 +86,7 @@ function addCourse($params){
   return "courseID is " . $m->getID() . "courseName is " .  $m->getName();
             }
   }
+  
    //check last id to see where to insert new course 
  function lastId($params) {
     $bl=new BL();

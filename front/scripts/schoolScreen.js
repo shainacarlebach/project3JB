@@ -68,16 +68,17 @@ var SchoolScreen = function () {
 
             $('#mainSales').html("");
             $.ajax('front/viewTemplates/studentInfoTemplate.html').always(function (studentinfotemplate) {
-                for (var i = 0; i < onestudentresult.length; i += 1) {
-                    console.log(onestudentresult[i].student_name);
+                let data = onestudentresult;
+                for (var i = 0; i < data.length; i += 1) {
+                    console.log(data[i].student_name);
 
                     var s = studentinfotemplate;
 
-                    s = s.replace("{{studentid}}", onestudentresult[i].student_id);
-                    s = s.replace("{{imgsrc}}", "uploads/" + onestudentresult[i].student_image);
-                    s = s.replace("{{name}}", onestudentresult[i].student_name);
-                    s = s.replace("{{phone}}", onestudentresult[i].student_phone);
-                    s = s.replace("{{email}}", onestudentresult[i].student_email);
+                    s = s.replace("{{editid}}", data[i].student_id);
+                    s = s.replace("{{imgsrc}}", "uploads/" + data[i].student_image);
+                    s = s.replace("{{name}}", data[i].student_name);
+                    s = s.replace("{{phone}}", data[i].student_phone);
+                    s = s.replace("{{email}}", data[i].student_email);
 
                     let d = document.createElement("div");
                     d.innerHTML = s;
@@ -85,13 +86,13 @@ var SchoolScreen = function () {
 
 
                     let coursemodule = new courseModule();
-                    let courseApiMethod = 'CourseApi';
-                    var data = { ctrl: courseApiMethod };
-                    coursemodule.getCourseForStudent(onestudentresult[i].student_id);
+                    coursemodule.getCourseForStudent(data[i].student_id);
 
                 }
             })
-        },//bring courses to one student screen
+        },
+
+        //bring courses to one student screen
         getStudentJoinCourses: function (coursestudentresult) {
 
             $.ajax("front/viewTemplates/studentCourseTemplate.html").always(function (courseTemplate) {
@@ -117,50 +118,83 @@ var SchoolScreen = function () {
             $.ajax("front/viewTemplates/addStudent.html").always(function (createStudentTemplate) {
 
                 var c = createStudentTemplate;
-                c = c.replace("{{new?}}", "new");
-                c = c.replace("{{saveid}}", "new");
+
                 let d = document.createElement("div");
                 d.innerHTML = c;
                 $('#mainSales').html("");
                 $("#mainSales").append(d);
+
             });
         },
+        showNewStudent: function (newstudentresult) {
 
+            $('#mainSales').html("");
+            $.ajax('front/viewTemplates/studentInfoTemplate.html').always(function (studentinfotemplate) {
+                let data = newstudentresult;
+                for (var i = 0; i < data.length; i += 1) {
+                    console.log(data[i].student_name);
+
+                    var s = studentinfotemplate;
+
+                    s = s.replace("{{editid}}", data[i].student_id);
+                    s = s.replace("{{imgsrc}}", "uploads/" + data[i].student_image);
+                    s = s.replace("{{name}}", data[i].student_name);
+                    s = s.replace("{{phone}}", data[i].student_phone);
+                    s = s.replace("{{email}}", data[i].student_email);
+
+                    let d = document.createElement("div");
+                    d.innerHTML = s;
+                    $("#mainSales").append(d);
+
+
+                    let coursemodule = new courseModule();
+                    coursemodule.getCourseForStudent(data[i].student_id);
+
+                }
+            });
+        },
+        getStudenteditForm: function (calltype, buttonID) {
+
+            var details = {
+                name: $("#student_name").html(),
+                phone: $("#student_phone").html(),
+                mail: $("#student_email").html(),
+
+            };
+            //  let studentCourses = []; //gets the student courses list DOM
+            // $(".courselist span h6").each(function(i, sp) {
+            //    studentCourses.push($(sp).attr("id"));
+            //});
+            getUpdateStudentTemp(details, calltype, buttonID)
+        }
     }
 }
-//click edit button brings delete/update student form
-function getStudenteditForm($this = data("studentid")) {
-    
-    var details = {
-        name: $("span#student_name").html(),
-        phone: $("span#student_phone").html(),
-        mail: $("span#student_email").html(),
-    };
-    //  let studentCourses = []; //gets the student courses list DOM
-    // $(".courselist span h6").each(function(i, sp) {
-    //    studentCourses.push($(sp).attr("id"));
-    //});
+
+//tempNameFunction(details, studentCourses, studen_id, calltype);
+
+function getUpdateStudentTemp(details, calltype, buttonID) {
 
     $.ajax("front/viewTemplates/editStudent.html").always(function (editStudentTemplate) {
         var e = editStudentTemplate;
-        e = e.replace("{{saveid}}", s_id);
-        e = e.replace("{{deleteid}}", s_id);
+        e = e.replace("{{deletestudent}}", buttonID);
+        e = e.replace("{{saveid}}", buttonID);
+
 
         let d = document.createElement("div");
         d.innerHTML = e;
         $('#mainSales').html("");
         $("#mainSales").append(d);
-        $("#phone").val(details.phone);
-        $("#email").val(details.mail);
-        $("#name").val(details.name);
 
+        $("#inputphone").val(details.phone);
+        $("#inputemail").val(details.mail);
+        $("#inputname").val(details.name);
+        //$("input:checkbox:checked").val(details.courses)
         //add checkbox
         // column3 = new Column3Director();;
         //column3.addCheckbox(studentCourses);
+
     });
 }
-
-
 
 
 

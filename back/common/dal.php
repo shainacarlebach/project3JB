@@ -37,9 +37,11 @@ class DAL {
        public function query($query){
            $conn = $this->openConnection();
            $stmt = $conn->prepare($query);
-           $stmt =$conn->execute();
-               return $true;
+           $stmt ->execute();
+               return true;
        }
+       
+
        //returns all data from tables 
           public function getAll($query){
           $conn=$this->openConnection();
@@ -68,7 +70,7 @@ class DAL {
      function checkRows($query){
         $conn = $this->openConnection();
         $stmt = $conn->prepare($query);
-        $stmt =$conn->execute();
+        $stmt->execute();
             return $stmt->rowCount(); 
      } 
    }

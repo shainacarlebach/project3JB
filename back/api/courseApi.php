@@ -23,8 +23,7 @@
      //retrieve all courses from db
        function Read($params) {
             $c = new CourseController;
-           // $courses=$c->getAllCourses();
-    if(array_key_exists("student_id", $params)) {
+         if(array_key_exists("student_id", $params)) {
         if(array_key_exists("inner",$params)){
               $coursesStudent=$c->getCourseinner($params);
               return $coursesStudent;

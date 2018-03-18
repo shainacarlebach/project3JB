@@ -24,7 +24,8 @@ function getStudentbyId($this = data("studentid")) {
   sendAjax('back/api/api.php', student, "GET", function (onestudentresult) {
     console.log(onestudentresult);
     let school = new SchoolScreen;
-    school.showOneStudent(JSON.parse(onestudentresult))
+    school.showOneStudent(JSON.parse(onestudentresult));
+
   });
 }
 
@@ -38,9 +39,15 @@ var studentModule = function () {
       let studentApiMethod = 'StudentApi';
       var data = { ctrl: studentApiMethod }
       let image;
-      let courses = [];
+      //  let courses = [];
       let values = [];
-      if (checkStudentForm($("#addStudentForm"))) {
+     
+      var courses = $("input:checkbox:checked").map(function () {
+        return $(this).val();
+        console.log(courses);
+      }).toArray();
+
+      if (checkAddStudentForm($("#addStudentForm"))) {
 
         values.name = $("#name").val().trim();
         values.phone = $("#phone").val().trim();
@@ -59,11 +66,10 @@ var studentModule = function () {
 
       sendAjax('back/api/api.php', student, "POST", function (newstudentresult) {
         console.log(newstudentresult);
-        if(newstudentresult==true){
-       getStudentbyId(id);
-        }
-    })
-  },
+        let school = new SchoolScreen;
+        school.showNewStudent(newstudentresult);
+      });
+    },
 
     getStudent: function (data, callstudents) {
       $.ajax({
@@ -81,71 +87,116 @@ var studentModule = function () {
         }
       });
     },
+    getStudentsForCourse(id){
+     var data={
+        ctrl: studentApiMethod,
+        id:student_id,
+        inner:true
+      };
+      let student = new Student(data);
+     
+     sendAjax('back/api/api.php', student, "GET", function (studentsincourseresult) {
+          let coursesceeen = new CourseScreen();
+         coursesceeen.showStudentsinCourse(studentsincourseresult);
 
+      });
+  },
+    
 
-    deleteStudent: function (id) {
+    deleteStudent: function (buttonID) {
       let check = confirm("Are you sure you want to delete this student?")
-      if (check = true) {
+      if (check === true) {
+
         let studentApiMethod = 'StudentApi';
         var data = {
           ctrl: studentApiMethod,
-          student_id: $this
+          student_id: buttonID
         };
-
         let student = new Student(data);
+
         sendAjax('back/api/api.php', student, "DELETE", function (deletestudentresult) {
           console.log(deletestudentresult);
+          alert("Your request was completed successfully! Click on school button. ")
         });
+        $('#mainSales').html("");
+        $('#Students').html("");
+        $("#Courses").html("");
+      
       }
     },
+               
     updateStudent: function (buttonID) {
+      
+      let studentApiMethod = 'StudentApi';
+      var data = { ctrl: studentApiMethod,
+      student_id:buttonID }
+      let image;
+      // let courses = [];
+      let values = [];
 
-      getValuesfromForm(buttonId, function () {
-        let student = new Student(data);
-        sendAjax("back/api/api.php", student, "PUT", function (updatestudentresult) {
-          if (updatestudentresult === true) {
-            alert("Student was updated!");
-            getStudentbyId($this = data("studentid"), student_id);
-          }
-        });
-      })
+      var courses = $("input:checkbox:checked").map(function () {
+        return $(this).val();
+        console.log(courses);
+      }).toArray();
+
+      if (checkEditStudentForm($("#editStudentForm"))) {
+
+        values.name = $("#inputname").val().trim();
+        console.log(values.name);
+         values.phone = $("#inputphone").val().trim();
+         console.log(values.phone);
+         values.email = $("#inputemail").val().trim();
+         console.log(values.email);
+        values.image = $("#inputimage").prop("files")[0];
+        console.log($("#inputimage").prop("files")[0]);
+
+
+        data.student_name = values.name;
+        data.student_phone = values.phone;
+        data.student_email = values.email;
+        data.student_image = values.image.name;
+        console.log(values.image.name);
+      }
+      let student = new Student(data);
+      sendAjax("back/api/api.php", student, "PUT", function (updatestudentresult) {
+        if (updatestudentresult === true) {
+          alert("Student was updated!");
+          getStudentbyId($this = data("studentid"), student_id);
+        }
+      });
+
     }
   }
 }
 
-function requestImplemented(response) {
-  if (response === true) {
-    alert("Your request was done sucssesfuly.");
-    //let loadmain = new MainScreen();
-    //loadmain.loadmaindcreen();
 
-  } else {
-    alert(response);
-  }
-
-}
-//calls functions to creates a new student when clicked
-$(document).on("click", "#saveStudent", function (e) {
-  e.preventDefault(); 
-   let studentmodule = new studentModule();
+//calls function to creates a new student when clicked
+$(document).on("click", "#createStudent", function (e) {
+  e.preventDefault();
+  let studentmodule = new studentModule();
   let student_id = $(this).data("savestudent");
   studentmodule.createStudent();
 });
+
+//calls edit student template
+$(document).on("click", "#editStudent", function () {
+  location.hash = "edit student " + $(this).data("editid");
+  let school = new SchoolScreen;
+  school.getStudenteditForm("edit", $(this).data("editid"));
+});
 // calls functions to update student when clicked 
-$(document).on("click", "#update_student", function (e) {
+$(document).on("click", "#save_student", function (e) {
   e.preventDefault();
   let studentmodule = new studentModule();
-  let student_id = $(this).data("studentid");
-  studentmodule.updateStudent(student_id);
+  let studentId = $(this).data("savestudent");
+  studentmodule.updateStudent(studentId);
 });
 //calls functions to delete student when clicked
 $(document).on("click", "#delete_student", function (e) {
   e.preventDefault();
   let studentmodule = new studentModule();
-  studentmodule.deleteStudent($(this).data("studentid"));
+   studentmodule.deleteStudent($(this).data("deletestudent"));
 });
-
-
 
 
 

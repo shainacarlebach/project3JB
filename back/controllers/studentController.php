@@ -72,7 +72,7 @@ function getStudentById($params) {
        $bl=new BL();
        $m= new StudentModel($params);
        if($m->getID()!='null'||$m->getID()!='Nan'){
-       $sid=$bl-> get_ID_DB('school_students',$m->getID());
+       $sid=$bl-> get_studentID_DB('school_students',$m->getID());
     //    $courses=$this->getCoursesPerStudent($m->getID());
        return $sid; 
        }
@@ -99,9 +99,9 @@ function getAllStudentCourses(){
         }      
 //deletes student from system
       
- function DeleteStudent(){
+ function DeleteStudent($params){
      $bl=new BL();
-     $m =new StudentModel($param);
+     $m =new StudentModel($params);
      if($m->getID()!='false'){
      $deletedStudent=$bl-> deleteData($this->tableName,$m->getID());
      if($deletedStudent == true){
@@ -113,9 +113,9 @@ function getAllStudentCourses(){
  } 
 
  //updates student
-    function UpdateStudent(){
+    function UpdateStudent($params){
         $bl=new BL();
-        $m =new StudentModel($param);
+        $m =new StudentModel($params);
         if($m->getID()!='null'||$m->getID()!='Nan'){
             $updateStudent="student_name='".$m->getName()."',student_phone='".$m->getPhone()."',email='".$m->getEmail()."',
             student_image='".$m->getImage()."'";

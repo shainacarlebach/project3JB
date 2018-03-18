@@ -4,7 +4,7 @@ $('document').ready(function () {
   //hide admin and sales link before login
   $("#nav_Administration").hide(),
     $("#logoutbutton").hide(),
-    $("#addCourses").hide(), //sales can't edit course 
+//    $("#addCourses").hide(), //sales can't edit course 
     //click on login button in modal to bring loginuser from server 
     $("#login_button").click(function (e) {
       e.preventDefault();
@@ -37,7 +37,7 @@ $('document').ready(function () {
               //show admin link
               $("#nav_Administration").show();
               //show able to add courses link
-              $("#addCourses").show();
+             // $("#addCourses").show();
               alert('login success');
             }
             else { adminrole === "sales" };

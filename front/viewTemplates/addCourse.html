@@ -1,0 +1,24 @@
+<div class="jumbotron">
+    <div class="col-md-8 ">
+        <p>Add Course </p>
+        <hr>
+
+        <form enctype="multipart/form-data" id="addCourseForm">
+
+            Name:
+            <input type="text" name="name" id="coursename" placeholder="name">
+            <br> Description:
+            <textarea type="text" name="description" id="coursedetails" placeholder="name" cols="30" rows="10" maxlength="300"></textarea>
+            <br> Image:
+            <input id="courseimage" name="upload_image" type="file" multiple>
+
+            <!--crop image -->
+            <div class="component crop2">
+                <img id="croppedimage" data-name="" src="#" onload="this.width/=3;" alt="Your image">
+                <div id="crop_tool"></div>
+            </div>
+            <div>
+                <h6 id="totalstudents"></h6>
+            </div>
+        </form>
+        <button class=" btn btn-primary btn-lg float-right" id="saveCourse" data-courseid="{{C_id2}}">Save Course</button>

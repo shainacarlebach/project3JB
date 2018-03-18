@@ -21,12 +21,15 @@
            $newStudent= $this->controller->CreateStudent($params);
            $get_new_row =  $this->controller->getLastId();
            $new_id = $get_new_row[0]['student_id'];
-           // if (array_key_exists('student_courses',$params)){
-           // $newcourses =$params['school_courses'];
-           // $c= new CourseController($params);
-            //$c->addCourse($newcourses,$newID);    
-           return $newStudent;
+            if (array_key_exists('student_courses',$params)){
+            $newcourses =$params['school_courses'];
+            $c= new CourseController($params);
+           $c->addCourse($newcourses,$newID);    
+           if ($newStudent==true){
+              return $get_new_row;
         }
+    }
+}
         function getLastId() {
             $bl= new BL(); 
             $newId=$bl->lastInsertedId('school_students');
@@ -41,6 +44,11 @@
                $student = $this->controller->getStudentById($params);
               return json_encode($student);
             }
+            if(array_key_exists("new_id", $params)){
+                $get_new_row =  $this->controller->getLastId();
+                $new_id = $get_new_row[0]['student_id'];
+                return json_encode($new_id);    
+            }
             
       else {    $students=$this->controller->getAllStudents();
                return $students;
@@ -51,9 +59,9 @@
  function Update($params) {
      if(!array_key_exists('school_courses',$params)){
          $params['school_courses']= [];
-     }
-     $c = new CoursesController($params);
-    $currentcourses = $c->joinTables($params);
+    }
+    $c = new CoursesController($params);
+  $currentcourses = $c->joinTables($params);
     $updatedStudent =$this->controller->UpdateStudent();
     return $updatedStudent;
     }    
@@ -66,7 +74,7 @@
     //$stuOldCourses = $courses->getCoursesInnerJoin($params);
    // $deleteCourses = $courses->RemoveCourses($stuOldCourses, $params["id"]);
      //   if($deleteCourses){ //delete the student
-  $deleteStudent = $this->controller->DeleteStudent();
+  $deleteStudent = $this->controller->DeleteStudent($params);
                return $deleteStudent;
            }
            

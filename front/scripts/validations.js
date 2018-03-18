@@ -55,7 +55,7 @@ function checkForm(form){
   return true;
 }
 
-function checkStudentForm(addStudentForm){
+function checkAddStudentForm(addStudentForm){
   console.log( $("#name").val());
   if($("#name").val()==""){
     alert("Error: name cannot be blank!");
@@ -92,6 +92,60 @@ var email_regex= /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 if(!email_regex.test($("#email").val())) {
   alert("Error: email must contain only letters!");
   $("#email").focus();
+  return false;
+}
+if($("#inputimage").val()==""){
+  alert("Error: image must be chosen!");
+  $("#inputimage").focus();
+  return false;
+}
+if ($("#inputimage").val() > 1000000){
+  alert( "File cannot be larger then 1 MB");
+  $("#inputimage").focus();
+  return false;
+}
+
+alert("Your input is valid! ");
+return true;
+}
+
+function checkEditStudentForm(editStudentForm){
+  console.log( $("#inputname").val());
+  if($("#inputname").val()==""){
+    alert("Error: name cannot be blank!");
+    $("#inputname").focus();
+    return false;
+  }
+ 
+   var validname_regex =   /^[a-zA-Z]+$/;
+  
+  if(!validname_regex.test($("#inputname").val())) {
+    alert("Error: name must contain only letters!");
+    $("#inputname").focus();
+    return false;
+  }
+  if($("#inputphone").val()==""){
+    console.log( $("#inputphone").val());
+    alert("Error: Phone cannot be blank!");
+    $("#inputphone").focus();
+    return false;
+  }
+ var validphone_regex=  /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/;
+ if(!phone_regex.test($("#inputphone").val())) {
+  alert("Error: phone must contain only numbers!");
+  $("#inputphone").focus();
+  return false;
+}
+if($("#inputemail").val()==""){
+  console.log( $("#inputemail").val());
+  alert("Error: email cannot be blank!");
+  $("#inputemail").focus();
+  return false;
+}
+var validemail_regex= /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+if(!email_regex.test($("#inputemail").val())) {
+  alert("Error: email must contain only letters!");
+  $("#inputemail").focus();
   return false;
 }
 if($("#inputimage").val()==""){

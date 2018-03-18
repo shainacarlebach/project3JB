@@ -22,12 +22,19 @@ $alldata = $this->dal->getAll("SELECT * FROM `".$tableName."`");
 return $alldata;
 }
 
-//generic query get data by id 
-public function get_ID_DB($tableName,$idNum){
+//generic query get data by student id 
+public function get_studentID_DB($tableName,$idNum){
 $idall=$this->dal->getAll("SELECT * FROM`".$tableName."` WHERE student_id=$idNum");
 return $idall;
-
 }
+
+//generic query get data by course id 
+public function get_courseID_DB($tableName,$idNum){
+	$idall=$this->dal->getAll("SELECT * FROM`".$tableName."` WHERE course_id=$idNum");
+	return $idall;
+	}
+	
+	
 
 // checks rows deleted by id  
 public function validate_row($tableName, $idNum) {
@@ -54,12 +61,12 @@ return $newRows;
 
 //generic query to update data
 public function updateData($tableName,$values,$idNum){
-	$update=$this->dal->query("UPDATE `".$tableName."` SET ".$values."WHERE student_id='$idNum' ");
+	$update=$this->dal->query("UPDATE `".$tableName."` SET ".$values."WHERE student_id=$idNum ");
 	return $update;
 }
 //generic query to delete data
  public function deleteData($tableName,$idNum) {
-	$remove=$this->dal->query("DELETE FROM`".$tableName."`WHERE student_id='$idNum' ");
+	$remove=$this->dal->query("DELETE FROM`".$tableName."`WHERE student_id=$idNum ");
 	return $remove;
 }
 //generic query to join 2 tables

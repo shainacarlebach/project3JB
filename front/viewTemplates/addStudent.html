@@ -18,37 +18,42 @@
 
 
 
-            <!--crop image recieved-->
+            <!--crop image -->
             <div class="component crop2">
                 <img id="croppedimage" data-name="" src="#" onload="this.width/=3;" alt="Your image">
                 <div id="crop_tool"></div>
             </div>
 
             <br>
+           
             <div id="course-checkbox">
                 <h6>Courses</h6>
-                <div class="container">
+                </div>
+            <div class="container">
                     <label class="checkbox-inline">
-                        <input type="checkbox" value="">HTML 5
+                        <input type="checkbox" value="HTML5" id="HTML">HTML 5
+                        <br>
+                        HTML for web developers
+                        <img src="../../uploads/html.png"> 
                     </label>
 
                     <label class="checkbox-inline">
-                        <input type="checkbox" value="">CSS
+                        <input type="checkbox" value="CSS"id="CSS">CSS
                     </label>
 
                     <label class="checkbox-inline">
-                        <input type="checkbox" value="">BOOTSTRAP
+                        <input type="checkbox" value="BOOTSTRAP"id="BOOTSTRAP">BOOTSTRAP
                     </label>
 
                     <label class="checkbox-inline">
-                        <input type="checkbox" value="">JAVASCRIPT
+                        <input type="checkbox" value="JAVASCRIPT"id="JAVASCRIPT">JAVASCRIPT
                     </label>
 
                     <label class="checkbox-inline">
-                        <input type="checkbox" value=""> ANGULAR
+                        <input type="checkbox" value="ANGULAR"id="ANGULAR"> ANGULAR
                     </label>
                 </div>
             </div>
-            <button class=" btn btn-primary btn-xs"  id="saveStudent" data-saveStudent="{{savestudent}}">Save Student</button>
-            <button class=" btn btn-danger btn-xs float-right" id="delete_student" data-deleteStudent="{{studentid}}">Delete Student</button>
+            <button class=" btn btn-primary btn-xs"  id="createStudent" data-createStudent="{{savestudent}}">Save Student</button>
+                  
         </form>
