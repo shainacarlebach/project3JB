@@ -1,30 +1,30 @@
 
-<div class="container">
     <div class="jumbotron">
-        <h1> Course </h1>
-        <button class="editBut btn btn-primary" id="editCourse" data-editid="{{editid}}">Edit</button>
-            <div class="row">
-                <div class="col-md-3 order-3 no padding">
-
-                    <img class="photo" src="{{imgsrc}}">
-                </div>
-                <div class="col-md-9 order-9 text-left text nopadding">
-                    <h5>Course Name</h5>
-                        <p id="course_name">{{name}} </p>
-                    <h6> {{courseName}} </h6>
-                    <span> Details: <p id="course_details">{{details}}</p></span><br>
-                     </div>
-                </div>
-
+            <div class="col-md-6 ">
+        <h4> Course </h4>
+     
+        <hr>
+        <div class="container">
+                <div class="row">
+                    <div class="col-md-4 order-4 nopadding">
+        
+                    <img id="couursephoto" src="{{imgsrc}}">
+              <br>
+              <span id="course_name">{{name}} </span>
+              <br>
+              <span> Details: <p id="course_details">{{details}}</p></span><br>
+          </div>
+      </div>
+               
                 <div class="container">
-                    </div>
-            
+                   
                     <h5>Students in this Course:</h5>
             
                     <div id="studentlistforCourse" style="width:200px;"></div>
             
                     </div>
                     </div>
-                   
+                    <button class="btn btn-info" id="editCourse" data-editid="{{editid}}">Edit Course</button>
+                    </div>       
 
                     

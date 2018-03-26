@@ -22,14 +22,19 @@ var SchoolScreen = function () {
                 $("#totalcourses").html(courseresult.length);
 
                 $.ajax('front/viewTemplates/courseTemplate.html').always(function (courseTemplate) {
-                    for (var i in courseresult) {
+                    let data = courseresult;
+                    for (var i in data) {
                         var c = courseTemplate;
-                        const num = 'course' + courseresult[i].course_id;//element id
+                        const num = 'course' + data[i].course_id;//element id
 
-                        c = c.replace("{{courseid}}", courseresult[i].course_id);
-                        c = c.replace("{{imgsrc}}", "uploads/" + courseresult[i].course_image);
-                        c = c.replace("{{courseName}}", courseresult[i].course_name);
-                        c = c.replace("{{courseDescription}}", courseresult[i].course_description);
+
+                        c = c.replace("{{courseid}}", data[i].course_id);
+                        console.log(data[i].course_id);
+                        c = c.replace("{{imgsrc}}", "uploads/" + data[i].course_image);
+                        c = c.replace("{{courseName}}", data[i].course_name);
+                        c = c.replace("{{course_id}}", data[i].course_name);
+                        console.log(data[i].course_name)
+                        c = c.replace("{{courseDescription}}", data[i].course_description);
 
                         $('#Courses').append(c);
                     }
@@ -93,22 +98,23 @@ var SchoolScreen = function () {
         },
 
         //bring courses to one student screen
-        getStudentJoinCourses: function (coursestudentresult) {
+        getStudentJoinCourses: function (data) {
 
-            $.ajax("front/viewTemplates/studentCourseTemplate.html").always(function (courseTemplate) {
+            $.ajax("front/viewTemplates/courseTemplate.html").always(function (courseTemplate) {
+                //   let data=coursestudentresult;
+                $(".courseslist").html("");
+                for (let i = 0; i < data.length; i++) {
 
-                $("#courseslist").html("");
-                for (let i = 0; i < coursestudentresult.length; i++) {
-
-                    console.log(coursestudentresult["0"].course_name);
+                    console.log(data["0"].course_name);
                     var c = courseTemplate;
-                    c = c.replace("{{courseName}}", coursestudentresult["0"].course_name);
-                    c = c.replace("{{courseid}}", coursestudentresult["0"].course_id);
-                    c = c.replace("{{courseDescription}}", coursestudentresult["0"].course_description);
-                    c = c.replace("{{imgsrc}}", "uploads/" + coursestudentresult["0"].course_image);
+                    c = c.replace("{{courseName}}", data["0"].course_name);
+                    c = c.replace("{{course_id}}", data["0"].course_name);
+                    console.log(data["0"].course_name);
+                    c = c.replace("{{courseDescription}}", data["0"].course_description);
+                    c = c.replace("{{imgsrc}}", "uploads/" + data["0"].course_image);
                     let d = document.createElement("div");
                     d.innerHTML = c;
-                    $("#courseslist").append(d);
+                    $(".courseslist").append(d);
                 }
 
             });
@@ -124,6 +130,9 @@ var SchoolScreen = function () {
                 $('#mainSales').html("");
                 $("#mainSales").append(d);
 
+                let coursescreen = new CourseScreen;
+                let studentCourses;
+                coursescreen.addCheckbox();
             });
         },
         showNewStudent: function (newstudentresult) {
@@ -170,9 +179,8 @@ var SchoolScreen = function () {
     }
 }
 
-//tempNameFunction(details, studentCourses, studen_id, calltype);
 
-function getUpdateStudentTemp(details, calltype, buttonID) {
+function getUpdateStudentTemp(details, calltype, buttonID,studentCourses) {
 
     $.ajax("front/viewTemplates/editStudent.html").always(function (editStudentTemplate) {
         var e = editStudentTemplate;
@@ -188,10 +196,11 @@ function getUpdateStudentTemp(details, calltype, buttonID) {
         $("#inputphone").val(details.phone);
         $("#inputemail").val(details.mail);
         $("#inputname").val(details.name);
-        //$("input:checkbox:checked").val(details.courses)
+        $("input:checkbox:checked").val(details.courses)
         //add checkbox
-        // column3 = new Column3Director();;
-        //column3.addCheckbox(studentCourses);
+        let coursescreen = new CourseScreen;
+        let studentCourses;
+        coursescreen.addCheckbox();
 
     });
 }

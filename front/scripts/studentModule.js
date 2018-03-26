@@ -8,7 +8,7 @@ function Student(data) {
   if ("student_phone" in data && data.student_phone) this.student_phone = data.student_phone;
   if ("student_email" in data && data.student_email) this.student_email = data.student_email;
   if ("student_image" in data && data.student_image) this.student_image = data.student_image;
-  if ("student_courses" in data && data.student_courses) this.student_courses = data.student_courses;
+  if ("studentCourses" in data && data.studentCourses) this.studentCourses = data.studentCourses;
   if ("inner" in data && data.inner) this.inner = data.inner;
 }
 
@@ -39,13 +39,14 @@ var studentModule = function () {
       let studentApiMethod = 'StudentApi';
       var data = { ctrl: studentApiMethod }
       let image;
-      //  let courses = [];
+      let courses = [];
       let values = [];
      
-      var courses = $("input:checkbox:checked").map(function () {
-        return $(this).val();
-        console.log(courses);
-      }).toArray();
+
+     // var courses = $("input:checkbox:checked").map(function () {
+       // return $(this).val();
+        //console.log(courses);
+      //}).toArray();
 
       if (checkAddStudentForm($("#addStudentForm"))) {
 
@@ -55,10 +56,15 @@ var studentModule = function () {
         values.image = $("#inputimage").prop("files")[0];
         console.log($("#inputimage").prop("files")[0]);
 
+        $("input:checkbox[name='courses']:checked").each(function() { //get courses checked
+          courses.push($(this).attr("id"));
+      });
+
         data.student_name = values.name;
         data.student_phone = values.phone;
         data.student_email = values.email;
         data.student_image = values.image.name;
+        data.studentCourses=courses;
         console.log(values.image.name);
       }
 
@@ -88,6 +94,7 @@ var studentModule = function () {
       });
     },
     getStudentsForCourse(id){
+      let studentApiMethod = 'StudentApi';
      var data={
         ctrl: studentApiMethod,
         id:student_id,

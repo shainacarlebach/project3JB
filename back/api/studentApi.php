@@ -14,17 +14,18 @@
          $this->controller= new StudentController($params);
          $this->studentcoursecontroller= new StudentCourseController($params);
      }
-   
-       
+    
+     
+     
     //create new student and  new courses enrolled in
         function Create($params) {
            $newStudent= $this->controller->CreateStudent($params);
            $get_new_row =  $this->controller->getLastId();
            $new_id = $get_new_row[0]['student_id'];
-            if (array_key_exists('student_courses',$params)){
-            $newcourses =$params['school_courses'];
-            $c= new CourseController($params);
-           $c->addCourse($newcourses,$newID);    
+           if (array_key_exists('studentCourses',$params)){
+           $newstudentscourses =$params['studentCourses'];
+           $c= new CourseController($params);
+          $c->addCourse($newstudentscourses,$new_id);    
            if ($newStudent==true){
               return $get_new_row;
         }

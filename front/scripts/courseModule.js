@@ -14,18 +14,18 @@ if("inner" in data && data.inner)this.inner= data.inner;
 
  //get Course by id to show in main container
 function getCoursebyId($this = data("courseid")) {
-  let courseApiMethod = 'CourseApi';
-  var CourseData = {
-    ctrl: courseApiMethod,
-    course_id: $this
+ let courseApiMethod = 'CourseApi';
+ var CourseData = {
+ ctrl: courseApiMethod,
+ course_id: $this
   };
-  let course = new Course(CourseData);
-  sendAjax('back/api/api.php', course, "GET", function (onecourseresult) {
-    console.log(onecourseresult);
-    let coursescreen = new CourseScreen;
-    coursescreen.showOneCourse(JSON.parse(onecourseresult));
+ let course = new Course(CourseData);
+ sendAjax('back/api/api.php', course, "GET", function (onecourseresult) {
+ console.log(onecourseresult);
+ let coursescreen = new CourseScreen;
+ coursescreen.showOneCourse(onecourseresult);
 
-  });
+ });
 }
 
 //get all courses
@@ -57,11 +57,26 @@ var courseModule = function () {
               }
             });
         },
-        getCourseForStudent: function(student_id) {
+      getCoursebyId:function(id) {
+          let courseApiMethod = 'CourseApi';
+          var CourseData = {
+            ctrl: courseApiMethod,
+            course_id: id
+          };
+          let course = new Course(CourseData);
+          sendAjax('back/api/api.php', course, "GET", function (onecourseresult) {
+            console.log(onecourseresult);
+            let coursescreen = new CourseScreen;
+            coursescreen.showOneCourse(onecourseresult);
+        
+          });
+        },
+        
+        getCourseForStudent: function(id) {
          
           let courseApiMethod = 'CourseApi';
           var Coursedata = { ctrl: courseApiMethod,
-          student_id: student_id,
+          course_id: id,
         inner: true};
             
         sendAjax('back/api/api.php',Coursedata,"GET", function(coursestudentresult) {
@@ -72,5 +87,4 @@ var courseModule = function () {
     }
 };
 }
-
 

@@ -51,8 +51,17 @@ public function validate_row($tableName, $idNum) {
 public function Insert($tableName, $column,$values,$insertedobjects){
 	 $query="INSERT INTO ".$tableName."(".$column.") VALUES (".$values.")";
 	 $newRows=$this->dal->insertData($query, $insertedobjects);
-return $newRows;	
+	return $newRows;	
 	}
+	
+// $values = (100, 1) , (100, 2) , (100 , 3)
+public function MultliInsert($tableName, $column,$values){
+	 $query="INSERT INTO ".$tableName."(".$column.") VALUES ".$values ;
+	 $newRows=$this->dal->insertMultipleData($query);
+	return $newRows;	
+	}
+
+	
 //generic query to get last id of all rows to insert new row
 	public function lastInsertedId($tableName){
 	$lastID=$this->dal->getAll("SELECT * FROM ".$tableName." ORDER BY student_id DESC LIMIT 1");

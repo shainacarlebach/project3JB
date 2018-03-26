@@ -30,7 +30,7 @@ function getCourseinner($param){
     $table3 = 'school_relation';
     $columnEqual1 = 'school_courses.course_id = school_relation.id_course';    
     $columnEqual2 = 'school_students.student_id = school_relation.id_student';
-    $where = 'school_students.student_id = ' . $param['student_id'];
+    $where = 'school_students.student_id = ' . $param['course_id'];
     // $getall = ($selected_rows, $this->table_name, $table2, $table3, $Column_equal_to, $Column_equal_to2, $where);        
     $getall = $bl->jointhreetables($column_names, 'school_courses',$table2, $table3, $columnEqual1, $columnEqual2,$where);//, $where);
     for($i=0; $i<count($getall); $i++) {
@@ -43,12 +43,12 @@ function getCourseinner($param){
 
 
  //get one course 
-function getCourseById(){
+function getCourseById($params){
  $bl=new BL();
- $m= new CourseModel($param);
+ $m= new CourseModel($params);
  $m->getID();
  if($m->getID()!='null'||$m->getID()!='Nan'){
- $cid=$bl-> get_ID_DB($this->tableName,$m->getID());
+ $cid=$bl->  get_courseID_DB($this->tableName,$m->getID());
  return $cid; 
     }
  }
@@ -57,8 +57,8 @@ function getCourseById(){
  function check_course_id(){
  $bl=new BL();
  $m= new CourseModel($param);
- $m->getID();
- if($m->getID()!='null'||$m->getID()!='Nan'){
+ $m->getCourseID();
+ if($m->getCourseID()!='null'||$m->getCourseID()!='Nan'){
  $course_id=$bl->validate_id($this->tableName,$m->getID());
  return true;
   }else{
@@ -66,26 +66,32 @@ function getCourseById(){
   }
 }
 
+      
+
  //add a new course    
-function addCourse($params){
+function addCourse($newstudentscourses,$idNum){
   $bl=new BL();
-  $m= new CourseModel($param);
-  if($m->getID()!='null'||$m->getID()!='Nan'){
-  $fields="course_name,course_description,course_image";
-  $values= ":course_name,:course_description,:course_image";
-  $insertedobjects=array(              
-                  "course_name"=>getName(),
-                  "course_description"=>getDescription(), 
-                  "course_image"=>getImage()
-                         );
-                  
- $newCourse = $bl->Insert('school_courses',$fields,$values,$insertedobjects);
+  
+ // INSERT INTO ".$tableName."(".$column.") VALUES " . implode(',',$insertedobjects);
+ 
+   $column="school_relation.id_student,school_relation.id_course";
+  $values =":id_student,:id_course,:id_student,:id_course,:id_student,:id_course";
+ //$insertedobjects=array();
+ //$insertedobjects['courses']=array($newstudentscourses[$c]);
+ //foreach($insertedobjects as $values) {
+   //if(is_array($values)) {
+    //foreach ($values as $key => $val) {
+    //}
+     for ($c = 0; $c < count($newstudentscourses); $c++) {
+ $sql= $bl->MultliInsert("school_relation", $column,$values);
+ $sql .= "( $id_student , $newstudentscourses[$c] ),";
+ 
+        // substr(string,start,length)
+ $sql = substr($sql , 0 , strlen($sql) - 1); 
+   }            
  return true;
 }
-  else{
-  return "courseID is " . $m->getID() . "courseName is " .  $m->getName();
-            }
-  }
+ 
   
    //check last id to see where to insert new course 
  function lastId($params) {

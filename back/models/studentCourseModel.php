@@ -11,18 +11,28 @@ private $id_course;
 function __construct($params) 
 {
    $this->tableName =`school_relation`;
-   $this->Rows=array("id_student","id_course");
-   if(array_key_exists("student_id",$params))$this->id_student = $params["student_id"];
-   if(array_key_exists("courses",$params))$this->id_course= $params["courses"];
+    if(array_key_exists("id_student",$params))$this->id_student = $params["id_student"];
+   if(array_key_exists("id_course",$params))$this->id_course= $params["id_course"];
   
  }
 
-
+ public function setSTUDENTID(){
+    $validations=new Validation();
+    if($validation->NotNull($id_student)&& ($validation->isNumber($id_student))){
+    $this->id_student=$id_student;
+}
+}
 public function getStudentID()
 {
     return $this->id_student;
 }
 
+public function setCOURSEID(){
+    $validations=new Validation();
+    if($validation->NotNull($id_course)&& ($validation->isNumber($id_course))){
+    $this->id_course=$id_course;
+}
+}
 public function getCourseID()
 {
     return $this->id_course;
@@ -31,8 +41,8 @@ public function getCourseID()
 
 function jsonSerialize(){
     return[
-       "Student_student_id"=>$this->id_student,
-       "Course_course_id"=>$this->id_courseID
+       "id_student"=>$this->id_student,
+       "id_course"=>$this->id_course
         ];
 }
 }

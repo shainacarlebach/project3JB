@@ -1,19 +1,13 @@
-
-
-<button class="container box"onclick="getCoursebyId(id)" data-courseid="{{courseid}}">
+<button class="container box" onclick="getCoursebyId(id)" data-courseid ="{{courseid}}">
     <div class="row">
         <div class="col-md-3 order-3 no padding">
 
-            <img class="photo" src="{{imgsrc}}">
+            <img class="coursephoto" src="{{imgsrc}}">
         </div>
 
-        <div class="col-md-9 order-9 text-left text nopadding">
-            <h6 > {{courseName}} </h6>
-            <span> {{courseDescription}}</span>
-        </div>
+        <span class="col-md-9 order-9 text-left text nopadding"> 
+            <h6 id="{{course_id}}"> {{courseName}} </span>
+        <p> {{courseDescription}}</p>
+        </span>
     </div>
 </button>
-
-
-
-

@@ -61,10 +61,20 @@ class DAL {
       function insertData($query, $insertedobjects) {
         $conn=$this->openConnection();
         $stmt = $conn->prepare($query);
-         $stmt->execute($insertedobjects);
+        $stmt->execute($insertedobjects);
         return true;
     }
     
+    //inserts multiple data into table
+    function insertMultipleData($query){
+     $conn=$this->openConnection();
+     $stmt = $conn->prepare($query);
+     $stmt->bindParam(1, $id_student, PDO::PARAM_INT);
+     $stmt->bindParam(2, $id_course, PDO::PARAM_INT);
+     $stmt->execute();
+     return true;   
+    }
+   
     
      //check number of rows deleted or updated
      function checkRows($query){

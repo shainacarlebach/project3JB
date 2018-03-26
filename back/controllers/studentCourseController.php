@@ -6,8 +6,7 @@ require_once '../common/bl.php';
 class StudentCourseController extends Controller {
     private $tableName='school_relation';
     
- //creates new student in DB table   
-    
+ 
            
  // create new row in table 
  function updateRelation() {

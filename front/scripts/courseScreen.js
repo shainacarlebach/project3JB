@@ -1,7 +1,14 @@
 "use strict";
 
-let adminrole;
 var CourseScreen = function () {
+ let adminrole;
+// let coursescreen;
+ //var coursescreen_data = {};
+
+ //function callCoursesTemplate(details, studentCourses, calltype, buttonID ){
+
+ //} 
+
     return {
         //switch main container to show one course info 
         showOneCourse: function (onecourseresult, adminrole) {
@@ -31,9 +38,61 @@ var CourseScreen = function () {
 
                 }
             })
-        }//,
-       // showStudentsinCourse(onecourseresult){
+        }, //create a function to show courses as an array dynamically on student forms
+        addCheckbox: function (studentCourses) {
+            if (!studentCourses) {
+               studentCourses = false;
+            }
+                              
+            var CoursesArray = [];
+          
+            //gets all courses from index page and element id from template
+            $(".selectCourses span h6").each(function (index, value) { 
+              CoursesArray.push($(value).attr("id"));
+            });
+            
+            
+            var Coursesid = []; //gets all courses list from DOM
+            $(".selectCourses button").each(function (index, value) {
+                Coursesid.push($(value).data("courseid"));
+           });
+          // give each checkbox value from dyanmically generated data
+             for (var i = 0; i < CoursesArray.length; i++) {
+                var checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.name = "courses";
+                checkbox.value = CoursesArray[i];
+                console.log(CoursesArray[i]);
+                checkbox.id = Coursesid[i];
 
-       // }
+                  if (studentCourses !== false) {
+                   for (var x = 0; x < studentCourses.length; x++) {
+                   if (Coursesid[i] == studentCourses[x]) {
+                   checkbox.checked = true;
+                 }
+                }
+            }
+// add label for checkbox from dynamically generated data
+            var label = document.createElement("label")
+           label.htmlFor = i;
+           console.log(label.htmlFor = i);
+            label.appendChild(document.createTextNode(CoursesArray[i] + " course"));
+            console.log(CoursesArray[i] + " course");
+                      
+            $("#course-checkbox").append(checkbox);
+            $("#course-checkbox").append(label);
+            
+        }
     }
+   // }); 
+          
+    //});
+       // }
+        //}//,
+
+        // showStudentsinCourse(onecourseresult){
+
+        // }
+   
+}
 }
