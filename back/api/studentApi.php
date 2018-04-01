@@ -39,29 +39,34 @@
 
 //get all students or one student by id
         function Read($params) {
-                            
-             if (array_key_exists("student_id", $params)) {
-                              
+                          
+       if (array_key_exists("student_id", $params)) {
+                if(array_key_exists("inner",$params)){
+                    $studentsinCourse= $this->controller->getCoursesPerStudent($params);
+                    return $studentsinCourse;
+                      }
+                      else{               
                $student = $this->controller->getStudentById($params);
               return json_encode($student);
             }
-            if(array_key_exists("new_id", $params)){
-                $get_new_row =  $this->controller->getLastId();
-                $new_id = $get_new_row[0]['student_id'];
-                return json_encode($new_id);    
-            }
-            
+          //  if(array_key_exists("new_id", $params)){
+            //    $get_new_row =  $this->controller->getLastId();
+              //  $new_id = $get_new_row[0]['student_id'];
+              //  return json_encode($new_id);    
+            //}
+          } 
       else {    $students=$this->controller->getAllStudents();
                return $students;
               }
                }
+           // }
 
-        //updates student        
+            //updates student        
  function Update($params) {
      if(!array_key_exists('school_courses',$params)){
          $params['school_courses']= [];
     }
-    $c = new CoursesController($params);
+    $c = new CourseController($params);
   $currentcourses = $c->joinTables($params);
     $updatedStudent =$this->controller->UpdateStudent();
     return $updatedStudent;

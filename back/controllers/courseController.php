@@ -70,27 +70,31 @@ function getCourseById($params){
 
  //add a new course    
 function addCourse($newstudentscourses,$idNum){
-  $bl=new BL();
-  
- // INSERT INTO ".$tableName."(".$column.") VALUES " . implode(',',$insertedobjects);
+    $bl=new BL();
+       for ($c = 0; $c < count($newstudentscourses); $c++) {
+         $params=[   
+               "id_student"=>$idNum,
+             "id_course"=>$newstudentscourses[$c]
+         ];
+        
+$sc=new StudentCourseModel($params);
+if($sc->getStudentID() != 'null' && $sc->getCourseID()!='null'){
+    $column="school_relation.id_student,school_relation.id_course";
+    $values =":id_student,:id_course";  
+    $insertedobjects = array(
+        "id_student"=> $sc->getStudentID(),
+        "id_course"=>$sc-> getCourseID()  
+    );
+    $newStudent = $bl->Insert('school_relation', $column,$values,$insertedobjects);
  
-   $column="school_relation.id_student,school_relation.id_course";
-  $values =":id_student,:id_course,:id_student,:id_course,:id_student,:id_course";
- //$insertedobjects=array();
- //$insertedobjects['courses']=array($newstudentscourses[$c]);
- //foreach($insertedobjects as $values) {
-   //if(is_array($values)) {
-    //foreach ($values as $key => $val) {
-    //}
-     for ($c = 0; $c < count($newstudentscourses); $c++) {
- $sql= $bl->MultliInsert("school_relation", $column,$values);
- $sql .= "( $id_student , $newstudentscourses[$c] ),";
- 
-        // substr(string,start,length)
- $sql = substr($sql , 0 , strlen($sql) - 1); 
-   }            
- return true;
+    return true;
 }
+  else{
+       return false;
+   }
+}
+
+} 
  
   
    //check last id to see where to insert new course 

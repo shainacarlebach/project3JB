@@ -105,13 +105,15 @@ var SchoolScreen = function () {
                 $(".courseslist").html("");
                 for (let i = 0; i < data.length; i++) {
 
-                    console.log(data["0"].course_name);
+                    console.log(data[i].course_name);
                     var c = courseTemplate;
-                    c = c.replace("{{courseName}}", data["0"].course_name);
-                    c = c.replace("{{course_id}}", data["0"].course_name);
-                    console.log(data["0"].course_name);
-                    c = c.replace("{{courseDescription}}", data["0"].course_description);
-                    c = c.replace("{{imgsrc}}", "uploads/" + data["0"].course_image);
+                    c = c.replace("{{courseid}}",data[i].course_id);
+                    console.log(data[i].course_id);
+                    c = c.replace("{{courseName}}", data[i].course_name);
+                    c = c.replace("{{course_id}}", data[i].course_name);
+                    console.log(data[i].course_name);
+                    c = c.replace("{{courseDescription}}", data[i].course_description);
+                    c = c.replace("{{imgsrc}}", "uploads/" + data[i].course_image);
                     let d = document.createElement("div");
                     d.innerHTML = c;
                     $(".courseslist").append(d);
@@ -161,7 +163,7 @@ var SchoolScreen = function () {
 
                 }
             });
-        },
+        }, 
         getStudenteditForm: function (calltype, buttonID) {
 
             var details = {
@@ -170,11 +172,16 @@ var SchoolScreen = function () {
                 mail: $("#student_email").html(),
 
             };
-            //  let studentCourses = []; //gets the student courses list DOM
-            // $(".courselist span h6").each(function(i, sp) {
-            //    studentCourses.push($(sp).attr("id"));
-            //});
-            getUpdateStudentTemp(details, calltype, buttonID)
+            //get courses student is registered to
+            let studentCourses = []; 
+             $(".courseslist span h6").each(function (i, sp){
+                studentCourses.push($(sp).attr("id"));
+               
+             });
+          //  $(".courseslist button").each(function(index,value){
+            //  studentCourses.push($(value).data("courseid"));
+           //});
+            getUpdateStudentTemp(details, calltype, buttonID,studentCourses)
         }
     }
 }
@@ -196,11 +203,11 @@ function getUpdateStudentTemp(details, calltype, buttonID,studentCourses) {
         $("#inputphone").val(details.phone);
         $("#inputemail").val(details.mail);
         $("#inputname").val(details.name);
-        $("input:checkbox:checked").val(details.courses)
+     //   $("#input:checkbox:checked").val(details.courses);
+
         //add checkbox
         let coursescreen = new CourseScreen;
-        let studentCourses;
-        coursescreen.addCheckbox();
+         coursescreen.addCheckbox(studentCourses);
 
     });
 }

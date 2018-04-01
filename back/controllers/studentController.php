@@ -36,14 +36,14 @@ function CreateStudent($params) {
     function getCoursesPerStudent($param) {
         $bl=new BL();
         $studentsArray = array();
-        $column_names = "school_courses.course_name,school_courses.course_description,school_courses.course_image";
-        $table1 = 'school_courses';
+        $column_names = "school_students.student_name,school_students.student_phone,school_students.student_email,school_students.student_image";
+        $table2 = 'school_courses';
         $table3 = 'school_relation';
-        $columnEqual = 'school_students.student_id = school_relation.id_student';
+        $columnEqual1 = 'school_students.student_id = school_relation.id_student';
         $columnEqual2 = 'school_courses.course_id = school_relation.id_course';
-        $where = 'school_students.student_id = ' . $param;
+        $where = 'school_students.student_id = ' . $param['student_id'];
         // $getall = ($selected_rows, $this->table_name, $table2, $table3, $Column_equal_to, $Column_equal_to2, $where);        
-        $getall = $bl->jointhreetables($column_names,$table1, 'school_students', $table3, $columnEqual, $columnEqual2,$where);//, $where);
+        $getall = $bl->jointhreetables($column_names,'school_students', $table2,$table3, $columnEqual1, $columnEqual2,$where);//, $where);
         for($i=0; $i<count($getall); $i++) {
             $s = new StudentModel($getall[$i]);
             array_push($studentsArray, $s->jsonSerialize());

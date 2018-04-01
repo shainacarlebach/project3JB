@@ -5,7 +5,6 @@
 function Course(data) {
 if("ctrl" in data && data.ctrl)this.ctrl=data.ctrl;    
 if("course_id" in data && data.course_id)this.course_id = data.course_id;
-if("student_id"in data && data.student_id)this.student_id=data.student_id;
 if("course_name"in data && data.course_name)this.course_name = data.course_name;
 if("course_description" in data && data.course_description) this.course_description = data.course_description;
 if("course_image" in data && data.course_image) this.course_image = data.course_image;
@@ -57,20 +56,7 @@ var courseModule = function () {
               }
             });
         },
-      getCoursebyId:function(id) {
-          let courseApiMethod = 'CourseApi';
-          var CourseData = {
-            ctrl: courseApiMethod,
-            course_id: id
-          };
-          let course = new Course(CourseData);
-          sendAjax('back/api/api.php', course, "GET", function (onecourseresult) {
-            console.log(onecourseresult);
-            let coursescreen = new CourseScreen;
-            coursescreen.showOneCourse(onecourseresult);
-        
-          });
-        },
+     
         
         getCourseForStudent: function(id) {
          

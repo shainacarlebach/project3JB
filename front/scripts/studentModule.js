@@ -78,6 +78,7 @@ var studentModule = function () {
     },
 
     getStudent: function (data, callstudents) {
+      let student = new Student(data);
       $.ajax({
         url: 'back/api/api.php',
         data: { activitiesArray: data },
@@ -93,16 +94,17 @@ var studentModule = function () {
         }
       });
     },
-    getStudentsForCourse(id){
+    getStudentsForCourse:function(id){
       let studentApiMethod = 'StudentApi';
-     var data={
+    
+     var Studentdata={
         ctrl: studentApiMethod,
-        id:student_id,
+        student_id:id,
         inner:true
       };
-      let student = new Student(data);
+      let student = new Student(Studentdata);
      
-     sendAjax('back/api/api.php', student, "GET", function (studentsincourseresult) {
+     sendAjax('back/api/api.php', Studentdata, "GET", function (studentsincourseresult) {
           let coursesceeen = new CourseScreen();
          coursesceeen.showStudentsinCourse(studentsincourseresult);
 
@@ -138,13 +140,18 @@ var studentModule = function () {
       var data = { ctrl: studentApiMethod,
       student_id:buttonID }
       let image;
-      // let courses = [];
+      let courses = [];
       let values = [];
+      
+     // var courses = $("input:checkbox:checked").map(function () {
+       // return $(this).val();
+       // console.log(courses);
+      //}).toArray();
+    $("input:checkbox[name='courses']:checked").each(function() { //get courses checked
+            courses.push($(this).attr("id"));
+        });
 
-      var courses = $("input:checkbox:checked").map(function () {
-        return $(this).val();
-        console.log(courses);
-      }).toArray();
+        data.studentCourses=courses;
 
       if (checkEditStudentForm($("#editStudentForm"))) {
 

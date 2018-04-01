@@ -54,13 +54,6 @@ public function Insert($tableName, $column,$values,$insertedobjects){
 	return $newRows;	
 	}
 	
-// $values = (100, 1) , (100, 2) , (100 , 3)
-public function MultliInsert($tableName, $column,$values){
-	 $query="INSERT INTO ".$tableName."(".$column.") VALUES ".$values ;
-	 $newRows=$this->dal->insertMultipleData($query);
-	return $newRows;	
-	}
-
 	
 //generic query to get last id of all rows to insert new row
 	public function lastInsertedId($tableName){

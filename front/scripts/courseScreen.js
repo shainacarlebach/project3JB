@@ -24,8 +24,8 @@ var CourseScreen = function () {
                     c = c.replace("{{editid}}", data[i].course_id);
                     c = c.replace("{{imgsrc}}", "uploads/" + data[i].course_image);
                     c = c.replace("{{name}}", data[i].course_name);
-                    c = c.replace("{{details}}", data[0].description);
-
+                    c = c.replace("{{details}}", data[i].course_description);
+                    console.log(data[i].course_description);
                     let d = document.createElement("div");
                     d.innerHTML = c;
                     $("#mainSales").append(d);
@@ -34,15 +34,15 @@ var CourseScreen = function () {
                     }
 
                     let studentmodule = new studentModule();
-                    studentmodule.getStudentsForCourse(data[i].student_id);
+                    studentmodule.getStudentsForCourse(data[i].course_id);
 
                 }
             })
         }, //create a function to show courses as an array dynamically on student forms
         addCheckbox: function (studentCourses) {
             if (!studentCourses) {
-               studentCourses = false;
-            }
+             studentCourses = false;
+          }
                               
             var CoursesArray = [];
           
@@ -53,7 +53,7 @@ var CourseScreen = function () {
             
             
             var Coursesid = []; //gets all courses list from DOM
-            $(".selectCourses button").each(function (index, value) {
+            $(".selectCourses button").each(function (i, value) {
                 Coursesid.push($(value).data("courseid"));
            });
           // give each checkbox value from dyanmically generated data
@@ -66,8 +66,9 @@ var CourseScreen = function () {
                 checkbox.id = Coursesid[i];
 
                   if (studentCourses !== false) {
-                   for (var x = 0; x < studentCourses.length; x++) {
-                   if (Coursesid[i] == studentCourses[x]) {
+                for (var x = 0; x < studentCourses.length; x++) {
+                    console.log(studentCourses[i])
+                 if (Coursesid[i] == studentCourses[i]) {
                    checkbox.checked = true;
                  }
                 }
@@ -83,16 +84,34 @@ var CourseScreen = function () {
             $("#course-checkbox").append(label);
             
         }
+    } , 
+
+ showStudentsinCourse:function(data){
+   $("#studentslistincourse").html("");
+
+    $.ajax('front/viewTemplates/listStudentsinCourse.html').always(function (studentsincourseTemplate) {
+        
+        for (var i= 0;i < data.length; i++) {
+            var s = studentsincourseTemplate;
+            
+            s = s.replace("{{singleStudent}}", "StudentinCourse" + i);
+            s = s.replace("{{studentid}}", data[i].student_id);
+            s = s.replace("{{imgsrc}}", "uploads/" + data[i].student_image);
+            s = s.replace("{{studentName}}", data[i].student_name);
+            s = s.replace("{{totalstudents}}", data.length);
+            
+            let d = document.createElement("div");
+            d.innerHTML = s;
+            $("#studentslistincourse").append(d);
+        }
+        
+    });
+
+}
+        }
     }
-   // }); 
-          
-    //});
-       // }
-        //}//,
-
-        // showStudentsinCourse(onecourseresult){
-
-        // }
    
-}
-}
+    
+
+
+
